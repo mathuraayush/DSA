@@ -42,6 +42,7 @@ void PrintLL(Node* head){
         cout<<start->data<<" ";
         start=start->next;
     }
+    cout<<endl;
 }
 // Length of LL
 int LengthLL(Node* head){
@@ -64,6 +65,75 @@ bool Ispresent(Node* head,int target){
         temp=temp->next;
     }
     return false;
+}
+// Insertion at start
+Node* InsertAtStart(Node* &head,int value){
+    Node* start=head;
+    Node* New=new Node(value);
+    New->next=start;
+    return New;
+}
+// Insertion at End
+void InsertAtEnd(Node* &head,int value){
+    Node* start=head;
+    Node* New=new Node(value);
+    if(start==nullptr) {
+        head=New;
+        return;
+    } 
+    while(start->next){
+        start=start->next;
+    }
+    start->next=New;
+}
+// Insertion at Middle
+void InsertAtMiddle(Node* &head,int InsertAt,int value){
+    Node* start=head;
+    Node* New=new Node(value);
+    while(start && start->data != InsertAt){
+      start=start->next;
+    }
+    if(start==nullptr){
+        delete New;
+        return ;
+    }
+    Node* temp=start->next;
+    start->next=New;
+    New->next=temp;
+
+}
+// Deletion at end
+void DeleteAtEnd(Node* head){
+    if (head==nullptr) return;
+    Node* temp=head;
+    while(temp->next->next!=nullptr){
+        temp=temp->next;
+    }
+    delete temp->next;
+    temp->next=nullptr;
+}
+//Deletion at Middle
+void DeleteAtMiddle(Node* head,int toDelete){
+    Node* Temp=head;
+    while((Temp != nullptr && Temp->next != nullptr) && (Temp->next->data != toDelete)){
+        Temp=Temp->next;
+    }
+    if(Temp==nullptr) {
+    cout<<"Target Node is not Present";
+    return;
+    }
+    Node* nex=Temp->next->next;
+    delete Temp->next;
+    Temp->next=nex;
+
+
+}
+//Deletion at Start
+Node* DeleteAtStart(Node* head){
+    if(head==nullptr) return nullptr;
+    Node* temp=head->next;
+    delete head;
+    return temp;
 }
 int main()
 {   // One Way 
@@ -96,14 +166,24 @@ int main()
     vector<int> arr={12,45,89,0,75};
     Node* start=convertArrayToLL(arr);
     PrintLL(start);
-    int Length= LengthLL(start);
-    cout<<endl;
-    cout<<Length;
-    cout<<endl;
-    bool a = Ispresent(start,75);
-    cout<<a;
-
-
+    // int Length= LengthLL(start);
+    // cout<<endl;
+    // cout<<Length;
+    // cout<<endl;
+    // bool a = Ispresent(start,75);
+    // cout<<a;
+    start=InsertAtStart(start,23);
+    PrintLL(start);
+    InsertAtEnd(start,15);
+    PrintLL(start);
+    InsertAtMiddle(start,89,96);
+    PrintLL(start);
+    DeleteAtEnd(start);
+    PrintLL(start);
+    DeleteAtMiddle(start,45);
+    PrintLL(start);
+    start=DeleteAtStart(start);
+    PrintLL(start);
     
 
 

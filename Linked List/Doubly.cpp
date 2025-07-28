@@ -3,13 +3,14 @@
 using namespace std;
 
 
-struct Node
-{
+class Node
+{   public:
+
     int data;
     Node *prev;
     Node *next;
 
-
+    public:
     Node(int data1, Node* prev1,Node* next1)
     {
         data = data1;
@@ -42,6 +43,41 @@ Node* convertArrayToLL(vector<int> a){
     return head;
 
 }
+// Searching 
+void Searching(Node* head,int target){
+
+
+}
+
+// Delete at start
+Node* DeleteAtStart(Node* head){
+    if(head == nullptr) return nullptr;
+    Node* newHead = head->next;
+    if(newHead) newHead->prev = nullptr;
+    delete head;
+    return newHead;
+}
+
+// Delete at end
+Node* DeleteAtEnd(Node* head){
+    if(head == nullptr){
+        cout << "List is already empty!" << endl;
+        return nullptr;
+    }
+    if(head->next == nullptr){
+        delete head;
+        return nullptr;
+    }
+    Node* temp = head;
+    while(temp->next->next != nullptr){
+        temp = temp->next;
+    }
+    Node* lastNode = temp->next;
+    temp->next = nullptr;
+    delete lastNode;
+    return head;
+}
+
 // To print Linked List
 void PrintLL(Node* head){
     Node* start=head;
@@ -51,17 +87,31 @@ void PrintLL(Node* head){
     }
     cout<<endl;
 }
-void deleteAtSpecific(Node* head,int target){
-    Node
-    while()
-    Node* temp=tobedeleted->next;
-    tobedeleted->prev->next=temp;
-    delete tobedeleted;
-}
+
 int main(){
     vector<int> arr={12,45,89,0,75};
     Node* start=convertArrayToLL(arr);
     PrintLL(start);
+    
+//  while(temp->next != nullptr && temp->data != 89){
+//     temp=temp->next;
+//  }
+//  cout<<temp->prev->data;
+    start=DeleteAtStart(start);
+    PrintLL(start);
+    start=DeleteAtEnd(start);
+    PrintLL(start);
+    start=DeleteAtEnd(start);
+    PrintLL(start);
+    start=DeleteAtEnd(start);
+    PrintLL(start);
+    start=DeleteAtEnd(start);
+    PrintLL(start);
+    start=DeleteAtEnd(start);
+    PrintLL(start);
+    
+    
+  
     
 
      

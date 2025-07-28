@@ -77,6 +77,52 @@ Node* DeleteAtEnd(Node* head){
     delete lastNode;
     return head;
 }
+// Delete a Node with Value given
+Node* DeleteTarget(Node* head,int target){
+    
+    // If LL is empty
+    if (head==nullptr) return nullptr;
+    // If head is the target
+    if(head->data==target){
+       Node*newHead=head->next;
+       head->next=nullptr;
+       newHead->prev=nullptr;
+       delete head;
+       return newHead;
+    }
+    Node* temp=head;
+    while(temp!=nullptr && temp->data != target){
+        temp=temp->next;
+    }
+    if(temp == nullptr) {
+        cout<<"Node does'nt exist"<<endl;
+        return head;
+    }
+    
+    
+    
+    // Now, temp is the node to be deleted
+    // temp is the node to delete
+    Node* newTemp = temp->prev;
+    Node* newNext = temp->next;
+
+    newTemp->next = newNext;
+    if (newNext != nullptr) {
+        newNext->prev = newTemp;
+    }
+
+    delete temp;
+    return head;
+
+    
+}
+// Deleting a given Node
+
+
+// Deleting Kth Node
+
+
+
 
 // To print Linked List
 void PrintLL(Node* head){
@@ -91,24 +137,27 @@ void PrintLL(Node* head){
 int main(){
     vector<int> arr={12,45,89,0,75};
     Node* start=convertArrayToLL(arr);
-    PrintLL(start);
     
+    PrintLL(start);
 //  while(temp->next != nullptr && temp->data != 89){
 //     temp=temp->next;
 //  }
 //  cout<<temp->prev->data;
-    start=DeleteAtStart(start);
+    // start=DeleteAtStart(start);
+    // PrintLL(start);
+    // start=DeleteAtEnd(start);
+    // PrintLL(start);
+    // start=DeleteAtEnd(start);
+    // PrintLL(start);
+    // start=DeleteAtEnd(start);
+    // PrintLL(start);
+    // start=DeleteAtEnd(start);
+    // PrintLL(start);
+    // start=DeleteAtEnd(start);
+    // PrintLL(start);
+    start=DeleteTarget(start,45);
     PrintLL(start);
-    start=DeleteAtEnd(start);
-    PrintLL(start);
-    start=DeleteAtEnd(start);
-    PrintLL(start);
-    start=DeleteAtEnd(start);
-    PrintLL(start);
-    start=DeleteAtEnd(start);
-    PrintLL(start);
-    start=DeleteAtEnd(start);
-    PrintLL(start);
+   
     
     
   

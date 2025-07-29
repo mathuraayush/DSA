@@ -184,6 +184,132 @@ Node *DeleteKthNode(Node *head, int k)
     return head;
 }
 
+// Insertion at start
+
+Node *InsertAtBeginning(Node *head, int value)
+{
+    Node *New = new Node(value);
+    if (head != nullptr)
+    {
+        head->prev = New;
+        New->next = head;
+    }
+    return New;
+}
+// Insertion in end
+
+Node *InsertAtEnd(Node *head, int value)
+{
+    Node *New = new Node(value);
+    if (head == nullptr)
+        return New;
+    else if (head->next == nullptr)
+    {
+        {
+            head->next = New;
+            New->prev = head;
+        }
+    }
+    else
+    {
+        Node *temp = head;
+        while (temp->next != nullptr)
+        {
+            temp = temp->next;
+        }
+        temp->next = New;
+        New->prev = temp;
+    }
+    return head;
+}
+void InsertInMiddle(Node *mid, int value)
+{
+    Node *New = new Node(value);
+    Node *currNext = mid->next;
+    mid->next = New;
+    New->prev = mid;
+    New->next = currNext;
+    if (currNext != nullptr)
+        currNext->prev = New;
+}
+
+Node *InsertAfterGivenVal(Node *head, int target, int value)
+{
+
+    if (head->data == target)
+    {
+        Node *New = new Node(value);
+        Node *CurrNext = head->next;
+        head->next = New;
+        New->next = CurrNext;
+        New->prev = head;
+        return head;
+    }
+    Node *temp = head;
+    while (temp != nullptr && temp->data != target)
+    {
+        temp = temp->next;
+    }
+    if (temp == nullptr)
+        return head;
+    if (temp->next == nullptr)
+    {
+        return (InsertAtEnd(head, value));
+    }
+    Node *New = new Node(value);
+    Node *CurrNext = temp->next;
+    temp->next = New;
+    New->next = CurrNext;
+    CurrNext->prev = New;
+    New->prev = temp;
+    return head;
+}
+Node *InsertAtKth(Node *head, int K, int value)
+{
+    if (K <= 0)
+        return head;
+
+    Node *New = new Node(value);
+
+    // Insert at head
+    if (K == 1)
+    {
+        if (head != nullptr)
+            head->prev = New;
+        New->next = head;
+        return New;
+    }
+
+    Node *temp = head;
+    int count = 1;
+    while (temp != nullptr && count < K)
+    {
+        temp = temp->next;
+        count++;
+    }
+
+    // Case: Insert at end (K == length + 1)
+    if (temp == nullptr && count == K)
+    {
+        return InsertAtEnd(head, value);
+    }
+
+    // Case: K is out of bounds (K > length + 1)
+    if (temp == nullptr)
+    {
+        return head;
+    }
+
+    // Case: Insert in middle
+    Node *CurrPrev = temp->prev;
+    CurrPrev->next = New;
+    New->prev = CurrPrev;
+    New->next = temp;
+    temp->prev = New;
+
+    return head;
+}
+
 // To print Linked List
 void PrintLL(Node *head)
 {
@@ -218,6 +344,22 @@ int main()
     // PrintLL(start);
     // start=DeleteAtEnd(start);
     // PrintLL(start);
-    start = DeleteTarget(start, 45);
+    start = DeleteTarget(start, 75);
     PrintLL(start);
+
+    start = InsertAtBeginning(start, 15);
+    PrintLL(start);
+
+    // Node *start2 = new Node(0);
+
+    // start2 = InsertAtEnd(start2, 15);
+    // PrintLL(start2);
+
+    // start2 = InsertAtEnd(start2, 25);
+    // PrintLL(start2);
+
+    start = InsertAfterGivenVal(start, 45, 74);
+    PrintLL(start);
+    // start = InsertAtKth(start,5, 05);
+    // PrintLL(start);
 }

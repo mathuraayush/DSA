@@ -21,3 +21,13 @@ Backtracking:
 3
 2
 1
+Sum: 
+15
+Sum: 
+15
+Factorial: 
+120
+Factorial Fwd: 
+120
+Original Vector: 1 2 3 4 5
+Reversed Vector: 5 4 3 2 1 

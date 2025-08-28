@@ -53,15 +53,21 @@ int factorialFwd(int n,int i=1){
 }   
 //Swap helper
 void swap(int &a,int &b){
-    int t=a;
+    int temp=a;
     a=b;
-    b=t;
+    b=temp;
 }
-// Reverse
-void reverse(vector<int>&a, int n){
-   if(n==a.size()/2) return;
-   reverse(a,n-1);
-   swap(a[n],a[(a.size()-1)-n]);
+// Backtracking Version: 
+void rev(vector<int> &a,int n){
+    if(n<(a.size())/2) return;
+    rev(a,n-1);
+    swap(a[n],a[(a.size())-n-1]);
+}
+// Normal 
+void r(vector<int> &a,int left,int right){
+    if(left>=right) return;
+    swap(a[left],a[right]);
+    r(a,left+1,right-1);
 }    
 
 int main() {
@@ -89,8 +95,16 @@ int main() {
     cout<<"Original Vector: 1 2 3 4 5"<<endl;
     vector<int> a={1,2,3,4,5,};
     cout<<"Reversed Vector: ";
-    reverse(a,a.size());
+    rev(a,a.size());
     for(auto i:a){
+         cout<<i<<" ";
+    }
+    cout<<endl;
+       cout<<"Original Vector: 15 30 45 60 75"<<endl;
+    vector<int> b={15,30,45,60,75};
+    cout<<"Reversed Vector: ";
+    r(b,0,a.size()-1);
+    for(auto i:b){
          cout<<i<<" ";
     }
 
